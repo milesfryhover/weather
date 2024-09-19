@@ -100,16 +100,23 @@ This application has basic scalability considerations, particularly in caching a
    - The application can be modified to run as a stateless service if deployed in a cloud environment, ensuring it can scale horizontally by allowing multiple instances to serve requests without depending on a single node's cache.
 
 ## Design Considerations
-1. **Singleton Pattern for Cache**:
-      - The cache uses a singleton-like approach to ensure only one instance of the cache exists throughout the program, preventing duplication and ensuring consistency.
-2. **Flexible User Input**:
-      - The postal code is extracted programmatically from geocoded addresses rather than provided by the user, ensuring accuracy and flexibility with user input formats.
-3. **Readability Over Complexity**:
-      - The application uses httptest for mocking API calls instead of libraries like gomock, prioritizing readability. Different techniques might be more appropriate depending on complexity.
-4. **CLI Implementation**:
+1. **Target Users**:
+      - The application is designed for users who want a quick and simple way to get weather information for a specific address without needing to know the latitude and longitude.
+      - The CLI interface is straightforward and user-friendly, making it accessible to a wide range of users.
+      - However, we do expect the person running it to have basic knowledge of setting up env variables and running a Go program
+2. **Performance**:
+      - The application is designed to be efficient by caching weather data and geocoding results to reduce the number of API calls.
+      - The cache eviction policy ensures that the cache remains up-to-date and doesn't consume excessive memory.
+3. **Design Limitations**:
       - The program is implemented as a CLI for ease of use, but it could be modified to be a web service or other implementations. The code is written to be module-agnostic of the main implementation.
-5. **Using httptest for Mocking Requests**:
-      - For mocking API calls, the httptest package was used instead of libraries like gomock. This approach emphasizes readability, though different techniques might be appropriate depending on complexity.
+      - The focus is on providing weather information quickly and efficiently without unnecessary complexity.
+      - Don't over-engineer the prompt but still provide a good UX and maintain best practices
+4. **Singleton Pattern for Cache**:
+      - The cache uses a singleton-like approach to ensure only one instance of the cache exists throughout the program, preventing duplication and ensuring consistency.
+5. **Flexible User Input**:
+      - The postal code is extracted programmatically from geocoded addresses rather than provided by the user, ensuring accuracy and flexibility with user input formats.
+6. **Readability Over Complexity**:
+      - The application uses httptest for mocking API calls instead of libraries like gomock, prioritizing readability. Different techniques might be more appropriate depending on complexity.
 
 ## Assumptions
 1. **Accuracy of Google's Geocoding API**:

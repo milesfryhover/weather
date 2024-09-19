@@ -1,10 +1,11 @@
 package main
 
 import (
-	"github.com/mfryhover/weather/api"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/mfryhover/weather/api"
 
 	"github.com/mfryhover/weather/cache"
 )

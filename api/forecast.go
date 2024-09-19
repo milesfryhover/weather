@@ -40,10 +40,10 @@ type WeeklyForecast struct {
 func GetForecast(latitude float64, longitude float64, baseURL string) (float64, WeeklyForecast, error) {
 	// Build the full API request URL
 	path := fmt.Sprintf(forecastPathTemplate, latitude, longitude)
-	url := fmt.Sprintf(baseURL + path)
+	fullURL := fmt.Sprintf(baseURL + path)
 
 	// Make the HTTP GET request to the API
-	resp, err := http.Get(url)
+	resp, err := http.Get(fullURL)
 	if err != nil {
 		return 0, WeeklyForecast{}, fmt.Errorf("error making GET request: %v", err)
 	}

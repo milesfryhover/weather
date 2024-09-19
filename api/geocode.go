@@ -48,10 +48,10 @@ type geocodeLocation struct {
 func AddressToCoordinates(address string, baseURL string, apiKey string) (fullAddress string, latitude, longitude float64, err error) {
 	// Build the full API request URL
 	path := fmt.Sprintf(geocodePathTemplate, url.QueryEscape(address), apiKey)
-	url := fmt.Sprintf(baseURL + path)
+	fullURL := fmt.Sprintf(baseURL + path)
 
 	// Make the HTTP GET request to the API
-	resp, err := http.Get(url)
+	resp, err := http.Get(fullURL)
 	if err != nil {
 		return "", 0.0, 0.0, fmt.Errorf("error making GET request: %v", err)
 	}

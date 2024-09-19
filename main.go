@@ -104,11 +104,11 @@ func main() {
 
 	fmt.Println("World's Best Weather App")
 	fmt.Println("---------------------------")
+	displayPrompt()
 
 	scanner := bufio.NewScanner(os.Stdin)
 
 	for scanner.Scan() {
-		displayPrompt()
 		address := scanner.Text()
 
 		if strings.EqualFold(address, "q") {
@@ -118,7 +118,8 @@ func main() {
 
 		addressFull, currentTemp, weeklyForecast, isFromCache, err := getForecast(address, c, "https://maps.googleapis.com", "https://api.open-meteo.com", apiKey)
 		if err != nil {
-			fmt.Println(err)
+			fmt.Printf("Oops! Looks like there was a mistake: %s. Please try again!\n", err)
+			displayPrompt()
 			continue
 		}
 
@@ -129,10 +130,10 @@ func main() {
 			fmt.Println("Forecast data is unavailable. Please try again!")
 		}
 
+		displayPrompt()
 	}
 
 	if err := scanner.Err(); err != nil {
-		fmt.Fprintf(os.Stderr, "Error reading input: %v\n", err)
+		fmt.Printf("Error reading input: %v\n", err)
 	}
-
 }
